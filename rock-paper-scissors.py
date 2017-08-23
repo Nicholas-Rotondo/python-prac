@@ -34,19 +34,4 @@ def replay():
         replay()
 
 
-
-
-
-
-# in this example well use a dictionary and ennumarate to map a number to ai random choice
-# def mainGameDict():
-#     dictOption = {
-#         "rock": 0,
-#         "paper": 1,
-#         "scissor":2
-#     }
-
-
-
-
 mainGame()
