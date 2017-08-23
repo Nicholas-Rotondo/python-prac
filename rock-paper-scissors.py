@@ -1,25 +1,50 @@
 import random
 
 def mainGame():
-    options = ["rock", "paper", "scissors"]
-    userInput = input("please choose rock paper scissor: ")
-    userInput.lower()
+    options = ["rock", "paper", "scissor"]
+    userInput = input("please choose rock paper scissor: ").lower()
     AI = random.choice(options)
-    if userInput == "rock":
-        if AI == "paper":
-            print("AI wins")
-        else:
-            print("User Wins")
-    if userInput == "paper":
-        if AI == "scissors":
-            print("AI wins")
-        else:
-            print("User Wins")
-    if userInput == "scissors":
-        if AI == "rock":
-            print("AI wins")
-        else:
-            print("User Wins")
+    if userInput == "rock" or userInput == "paper" or userInput ==  "scissor":
+        if userInput == AI:
+            print("Tie")
+            replay()
+        if userInput == "rock":
+            if AI == "paper":
+                print("AI wins")
+                replay()
+        if userInput == "paper":
+            if AI == "scissor":
+                print("AI wins")
+                replay()
+        if userInput == "scissor":
+            if AI == "rock":
+                print("AI wins")
+                replay()
+    else:
+        print("not a valid option")
+
+def replay():
+    newgame = input("Would you like to play again(y/n): ").lower()
+    if newgame == "y":
+        mainGame()
+    elif newgame == "n":
+        print("Bye")
+    else:
+        print("Not a valid option")
+        replay()
+
+
+
+
+
+
+# in this example well use a dictionary and ennumarate to map a number to ai random choice
+# def mainGameDict():
+#     dictOption = {
+#         "rock": 0,
+#         "paper": 1,
+#         "scissor":2
+#     }
 
 
 
