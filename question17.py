@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import random
 
 # question 17
 # url = "https://www.nytimes.com/"
@@ -79,41 +80,86 @@ from bs4 import BeautifulSoup
 #         for char in s
 # random_pod()
 
-def game():
-    print("""
-    Welcome to Hangman, here are some simple rules:
-    1.) If you enter a letter and the count is more than 1, enter the letter x amount of times
-    2.) You will be given a certain number of chances to complete the word
-    3.) Whether you win or lose you will be prompted to play again
-    4.) Enjoy the game :)
-    """)
-    import random
-    l = []
-    incorrect = 0
-    def sowpods():
-        with open("sowpods.txt", "r") as f:
-            word = f.readline()
-            while word:
-                word = f.readline()
-                l.append(word.strip())
-    sowpods()
-    pick = random.choice(l)
-    low_word = pick.lower()
-    s = ""
-    print(len(low_word))
-    while True:
-        letter = input("Please enter a letter to start Hangman: ")
-        if letter in low_word:
-            print(low_word.count(letter))
-            s += letter
-        elif letter not in low_word:
-            incorrect += 1
-            print(f"letter is {incorrect}")
-        elif len(s) == len(low_word):
-            print(f"Congratulations the correct word was {low_word}")
-            break
-        elif incorrect > 10:
-            print("You lose!")
+# def game():
+#     print("""
+#     Welcome to Hangman, here are some simple rules:
+#     1.) If you enter a letter and the count is more than 1, enter the letter x amount of times
+#     2.) You will be given a certain number of chances to complete the word
+#     3.) Whether you win or lose you will be prompted to play again
+#     4.) Enjoy the game :)
+#     """)
+#     import random
+#     l = []
+#     incorrect = 0
+#     def sowpods():
+#         with open("sowpods.txt", "r") as f:
+#             word = f.readline()
+#             while word:
+#                 word = f.readline()
+#                 l.append(word.strip())
+#     sowpods()
+#     pick = random.choice(l)
+#     low_word = pick.lower()
+#     s = ""
+#     print(len(low_word))
+#     while True:
+#         letter = input("Please enter a letter to start Hangman: ")
+#         if letter in low_word:
+#             print(low_word.count(letter))
+#             s += letter
+#         elif letter not in low_word:
+#             incorrect += 1
+#             print(f"letter is {incorrect}")
+#         elif len(s) == len(low_word):
+#             print(f"Congratulations the correct word was {low_word}")
+#             break
+#         elif incorrect > 10:
+#             print("You lose!")
+#             break
+#
+# game()
+
+def append_sowpods():
+    with open("sowpods.txt", "r") as f:
+        sowspods_list = [line.strip() for line in f]
+    word = random.choice(sowspods_list)
+    return word.lower()
+
+def check_letters():
+    ATTEMPTS_ALLOWED = 10
+    pick = append_sowpods()
+    attempts = 0
+    letters_guessed = []
+    word = []
+    for char in range(len(pick)):
+        word.append("_")
+
+    while attempts < ATTEMPTS_ALLOWED:
+        guess = input("Guess a letter: ")
+        if guess in pick:
+            print(f"That {guess} is in the word")
+            for index, value in enumerate(pick):
+                if value == guess:
+                    word[index] = guess
+            letters_guessed.append(guess)
+        else:
+            print("Incorrect guess.")
+            attempts += 1
+            letters_guessed.append(guess)
+
+        # print("you have guessed these letters: %s"%(''.join(letters_guessed)))
+        print(f"You have guessed these letters: {''.join(letters_guessed)}")
+        # print('Letters matched so far %s'%''.join(word))
+        print(f"Letters matched so far {''.join(word)}")
+        print()
+
+        if ''.join(word) == pick:
+            print(f"You were right! The correct word was {''.join(word)}")
             break
 
-game()
+    if attempts == 10:
+        print("You lose the word was %s"%(pick))
+
+
+
+check_letters()
