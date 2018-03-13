@@ -1,30 +1,36 @@
 import csv
 import json
 
-birthdays = {}
 def get_info():
-    cap = 1
-    while len(birthdays) < cap:
-        name = input("Enter your name(first and last): ").lower()
-        birth = input("Enter birthday like so: (MM/DD/YYYY): ").lower()
-        birthdays[name] = birth
+    birthdays = {}
+    name = input("Enter your name(first and last): ").lower()
+    birth = input("Enter birthday like so: (MM/DD/YYYY): ").lower()
+    birthdays[name] = birth
     return birthdays
 
+def validate_user_input():
+    print("Validating user data!")
+validate_user_input()
+
 def write_to_json():
-    get_info()
+    birth_info = get_info()
+    to_json = json.dumps(birth_info)
     print("Currently adding your input")
-    births_json = json.dumps(birthdays)
     f = open("birthdict.json", "a")
-    f.write(births_json + "\n")
+    f.write(to_json + "\n")
     f.close()
 write_to_json()
 
 def add_another():
-    add_person = input("Would you like to add another person(y/n): ").lower()
-    if add_person == "y":
-        write_to_json()
-    if add_person == "n":
-        print("Take care")
+    while True:
+        add_person = input("Would you like to add another person(y/n): ").lower()
+        if add_person == "y":
+            write_to_json()
+        elif add_person == "n":
+            print("Take care")
+            break
+        else:
+            print("Error wrong choice. Goodbye")
 add_another()
 
 
