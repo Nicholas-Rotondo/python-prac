@@ -8,9 +8,11 @@ def get_info():
     birthdays[name] = birth
     return birthdays
 
-def validate_user_input():
-    print("Validating user data!")
-validate_user_input()
+def search_person():
+    with open("./birthdict.json", "r") as f:
+        for line in f:
+            print(line)
+
 
 def write_to_json():
     birth_info = get_info()
@@ -19,7 +21,6 @@ def write_to_json():
     f = open("birthdict.json", "a")
     f.write(to_json + "\n")
     f.close()
-write_to_json()
 
 def add_another():
     while True:
@@ -31,7 +32,19 @@ def add_another():
             break
         else:
             print("Error wrong choice. Goodbye")
-add_another()
+
+def main():
+    choice = input("""If you would like to add someone, (type add).
+If you would like to look up someones birthday, (type search).
+If none of these option suit your needs, (type quit).
+""").lower()
+    if choice == "add":
+        add_another()
+    elif choice == "search":
+        search_person()
+    elif choice == "quit":
+        print("Goodbye")
+main()
 
 
 # def write_to_txt(info):
@@ -58,12 +71,4 @@ add_another()
 # #         if retrieve == key:
 # #             print(f"The persons birthday is {births_of_ppl.values()}")
 # #             append_func
-# # get_name()
-#
-# # def get_name():
-# #     births_of_ppl = get_info()
-# #     retrieve = input("Enter the name of a person you desire: ").lower()
-# #     for key,value in births_of_ppl.items():
-# #         if retrieve == key:
-# #             print(f"The persons birthday is {births_of_ppl.values()}")
 # # get_name()
